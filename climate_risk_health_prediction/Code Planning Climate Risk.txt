@@ -1,0 +1,18 @@
+Versi 3
+Memasukkan variable yang di pakai di baseline
+Algoritmanya sama yaitu Logistic Regression
+
+Versi 4
+Menggunakan algoritma random forest
+
+Versi 5
+Menggunakan algoritma XGB
+Tentukan optimum parameter
+
+Versi 6
+Menggunakan algoritma LightGBM
+Tentukan optimum parameter
+
+Versi 7
+Buat model banyak menggunakan XGB
+Blending semua model juga menggunakan XGB
