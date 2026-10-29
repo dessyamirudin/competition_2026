@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_5620c34c9ddbe1c2eabd54d73f85e3da {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+                    <style>
+                        .foliumpopup {
+                            margin: auto;
+                        }
+                       .foliumpopup table{
+                            margin: auto;
+                        }
+                        .foliumpopup tr{
+                            text-align: left;
+                        }
+                        .foliumpopup th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    
+    <div id='maplegend station_name' class='maplegend'>
+        <div class='legend-title'>station_name</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#e41a1c'></span>ARCUS- Kibanda Hydromet</li>
+                <li><span style='background:#e41a1c'></span>ARCUS- Kitui county office  (KMD)</li>
+                <li><span style='background:#e41a1c'></span>ARCUS- Talent High School</li>
+                <li><span style='background:#e41a1c'></span>Amenfiman SHS</li>
+                <li><span style='background:#e41a1c'></span>Boa Amponsem SHS</li>
+                <li><span style='background:#377eb8'></span>Breman Asikuma SHS</li>
+                <li><span style='background:#377eb8'></span>CEG1 Bemberke</li>
+                <li><span style='background:#377eb8'></span>Cinzana Gate</li>
+                <li><span style='background:#377eb8'></span>Dogo</li>
+                <li><span style='background:#4daf4a'></span>Ecole Privee Agropastorale Fatoumata Tienta</li>
+                <li><span style='background:#4daf4a'></span>Eldas Girls School</li>
+                <li><span style='background:#4daf4a'></span>Elubo</li>
+                <li><span style='background:#4daf4a'></span>GeogRP_UniBen_Benin</li>
+                <li><span style='background:#984ea3'></span>Gouendo</li>
+                <li><span style='background:#984ea3'></span>Habasweni DC Offices</li>
+                <li><span style='background:#984ea3'></span>Half Assini SHS</li>
+                <li><span style='background:#984ea3'></span>Institut de Formation Professionnelle Malick Sidibe LTAK</li>
+                <li><span style='background:#984ea3'></span>Jooust</li>
+                <li><span style='background:#ff7f00'></span>Kalana</li>
+                <li><span style='background:#ff7f00'></span>Kamuzu Academy</li>
+                <li><span style='background:#ff7f00'></span>Katibougou</li>
+                <li><span style='background:#ff7f00'></span>Keta SHS</li>
+                <li><span style='background:#ffff33'></span>Kignan</li>
+                <li><span style='background:#ffff33'></span>Linthipe Agriculture</li>
+                <li><span style='background:#ffff33'></span>Lycee De Mopti</li>
+                <li><span style='background:#ffff33'></span>Lycée Dedier De Montclos Sikasso</li>
+                <li><span style='background:#a65628'></span>MCS-FUTA-Akure</li>
+                <li><span style='background:#a65628'></span>Madina Diassa</li>
+                <li><span style='background:#a65628'></span>Manankoro</li>
+                <li><span style='background:#a65628'></span>Moi High School Kalokol</li>
+                <li><span style='background:#a65628'></span>Mwazisi</li>
+                <li><span style='background:#f781bf'></span>Nairobi University</li>
+                <li><span style='background:#f781bf'></span>Namikasi sec school</li>
+                <li><span style='background:#f781bf'></span>Ndirande Secondary School</li>
+                <li><span style='background:#f781bf'></span>Nyandarua High School</li>
+                <li><span style='background:#999999'></span>Seguela</li>
+                <li><span style='background:#999999'></span>Sotuba-CRRA</li>
+                <li><span style='background:#999999'></span>Tema Secondary School</li>
+                <li><span style='background:#999999'></span>Thumbwe Agriculture</li>
+                <li><span style='background:#999999'></span>Upper Nyando</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_5620c34c9ddbe1c2eabd54d73f85e3da" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_5620c34c9ddbe1c2eabd54d73f85e3da = L.map(
+                "map_5620c34c9ddbe1c2eabd54d73f85e3da",
+                {
+                    center: [-0.6346538500000003, 15.693331],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_5620c34c9ddbe1c2eabd54d73f85e3da);
+
+            
+
+        
+    
+            var tile_layer_04773e888f103254cabb81ec395850de = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_04773e888f103254cabb81ec395850de.addTo(map_5620c34c9ddbe1c2eabd54d73f85e3da);
+        
+    
+            map_5620c34c9ddbe1c2eabd54d73f85e3da.fitBounds(
+                [[-15.7639177, -8.195493], [14.49461, 39.582155]],
+                {}
+            );
+        
+    
+        function geo_json_538f0c0afa8c3ae7f560807d871df934_styler(feature) {
+            switch(feature.id) {
+                case "0": case "1": case "2": case "3": case "4": 
+                    return {"color": "#e41a1c", "fillColor": "#e41a1c", "fillOpacity": 0.5, "weight": 2};
+                case "5": case "6": case "7": case "8": 
+                    return {"color": "#377eb8", "fillColor": "#377eb8", "fillOpacity": 0.5, "weight": 2};
+                case "13": case "14": case "15": case "16": case "17": 
+                    return {"color": "#984ea3", "fillColor": "#984ea3", "fillOpacity": 0.5, "weight": 2};
+                case "18": case "19": case "20": case "21": 
+                    return {"color": "#ff7f00", "fillColor": "#ff7f00", "fillOpacity": 0.5, "weight": 2};
+                case "22": case "23": case "24": case "25": 
+                    return {"color": "#ffff33", "fillColor": "#ffff33", "fillOpacity": 0.5, "weight": 2};
+                case "26": case "27": case "28": case "29": case "30": 
+                    return {"color": "#a65628", "fillColor": "#a65628", "fillOpacity": 0.5, "weight": 2};
+                case "31": case "32": case "33": case "34": 
+                    return {"color": "#f781bf", "fillColor": "#f781bf", "fillOpacity": 0.5, "weight": 2};
+                case "35": case "36": case "37": case "38": case "39": 
+                    return {"color": "#999999", "fillColor": "#999999", "fillOpacity": 0.5, "weight": 2};
+                default:
+                    return {"color": "#4daf4a", "fillColor": "#4daf4a", "fillOpacity": 0.5, "weight": 2};
+            }
+        }
+        function geo_json_538f0c0afa8c3ae7f560807d871df934_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_538f0c0afa8c3ae7f560807d871df934_pointToLayer(feature, latlng) {
+            var opts = {
+  "stroke": true,
+  "color": "#3388ff",
+  "weight": 3,
+  "opacity": 1.0,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": null,
+  "dashOffset": null,
+  "fill": true,
+  "fillColor": "#3388ff",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "radius": 10,
+};
+            
+            let style = geo_json_538f0c0afa8c3ae7f560807d871df934_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_538f0c0afa8c3ae7f560807d871df934_onEachFeature(feature, layer) {
+
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_538f0c0afa8c3ae7f560807d871df934.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_538f0c0afa8c3ae7f560807d871df934_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_538f0c0afa8c3ae7f560807d871df934 = L.geoJson(null, {
+                onEachFeature: geo_json_538f0c0afa8c3ae7f560807d871df934_onEachFeature,
+            
+                style: geo_json_538f0c0afa8c3ae7f560807d871df934_styler,
+                pointToLayer: geo_json_538f0c0afa8c3ae7f560807d871df934_pointToLayer,
+            ...{
+}
+        });
+
+        function geo_json_538f0c0afa8c3ae7f560807d871df934_add (data) {
+            geo_json_538f0c0afa8c3ae7f560807d871df934
+                .addData(data);
+        }
+            geo_json_538f0c0afa8c3ae7f560807d871df934_add({"bbox": [-8.195493, -15.7639177, 39.582155, 14.49461], "features": [{"bbox": [31.3660654, -0.8596701, 31.3660654, -0.8596701], "geometry": {"coordinates": [31.3660654, -0.8596701], "type": "Point"}, "id": "0", "properties": {"__folium_color": "#e41a1c", "latitude": -0.8596701, "longitude": 31.3660654, "station_name": "ARCUS- Kibanda Hydromet"}, "type": "Feature"}, {"bbox": [38.003494, -1.379502, 38.003494, -1.379502], "geometry": {"coordinates": [38.003494, -1.379502], "type": "Point"}, "id": "1", "properties": {"__folium_color": "#e41a1c", "latitude": -1.379502, "longitude": 38.003494, "station_name": "ARCUS- Kitui county office  (KMD)"}, "type": "Feature"}, {"bbox": [35.675449, 3.192774, 35.675449, 3.192774], "geometry": {"coordinates": [35.675449, 3.192774], "type": "Point"}, "id": "2", "properties": {"__folium_color": "#e41a1c", "latitude": 3.192774, "longitude": 35.675449, "station_name": "ARCUS- Talent High School"}, "type": "Feature"}, {"bbox": [-2.090195, 5.778639, -2.090195, 5.778639], "geometry": {"coordinates": [-2.090195, 5.778639], "type": "Point"}, "id": "3", "properties": {"__folium_color": "#e41a1c", "latitude": 5.778639, "longitude": -2.090195, "station_name": "Amenfiman SHS"}, "type": "Feature"}, {"bbox": [-1.792334, 5.963177, -1.792334, 5.963177], "geometry": {"coordinates": [-1.792334, 5.963177], "type": "Point"}, "id": "4", "properties": {"__folium_color": "#e41a1c", "latitude": 5.963177, "longitude": -1.792334, "station_name": "Boa Amponsem SHS"}, "type": "Feature"}, {"bbox": [-0.996417, 5.592651, -0.996417, 5.592651], "geometry": {"coordinates": [-0.996417, 5.592651], "type": "Point"}, "id": "5", "properties": {"__folium_color": "#377eb8", "latitude": 5.592651, "longitude": -0.996417, "station_name": "Breman Asikuma SHS"}, "type": "Feature"}, {"bbox": [2.669973, 10.221683, 2.669973, 10.221683], "geometry": {"coordinates": [2.669973, 10.221683], "type": "Point"}, "id": "6", "properties": {"__folium_color": "#377eb8", "latitude": 10.221683, "longitude": 2.669973, "station_name": "CEG1 Bemberke"}, "type": "Feature"}, {"bbox": [-5.957291, 13.252222, -5.957291, 13.252222], "geometry": {"coordinates": [-5.957291, 13.252222], "type": "Point"}, "id": "7", "properties": {"__folium_color": "#377eb8", "latitude": 13.252222, "longitude": -5.957291, "station_name": "Cinzana Gate"}, "type": "Feature"}, {"bbox": [-7.337038, 11.891441, -7.337038, 11.891441], "geometry": {"coordinates": [-7.337038, 11.891441], "type": "Point"}, "id": "8", "properties": {"__folium_color": "#377eb8", "latitude": 11.891441, "longitude": -7.337038, "station_name": "Dogo"}, "type": "Feature"}, {"bbox": [-6.058808, 13.696194, -6.058808, 13.696194], "geometry": {"coordinates": [-6.058808, 13.696194], "type": "Point"}, "id": "9", "properties": {"__folium_color": "#4daf4a", "latitude": 13.696194, "longitude": -6.058808, "station_name": "Ecole Privee Agropastorale Fatoumata Tienta"}, "type": "Feature"}, {"bbox": [39.582155, 2.494205, 39.582155, 2.494205], "geometry": {"coordinates": [39.582155, 2.494205], "type": "Point"}, "id": "10", "properties": {"__folium_color": "#4daf4a", "latitude": 2.494205, "longitude": 39.582155, "station_name": "Eldas Girls School"}, "type": "Feature"}, {"bbox": [-2.641400593, 5.16120947, -2.641400593, 5.16120947], "geometry": {"coordinates": [-2.641400593, 5.16120947], "type": "Point"}, "id": "11", "properties": {"__folium_color": "#4daf4a", "latitude": 5.16120947, "longitude": -2.641400593, "station_name": "Elubo"}, "type": "Feature"}, {"bbox": [5.6263074, 6.4041137, 5.6263074, 6.4041137], "geometry": {"coordinates": [5.6263074, 6.4041137], "type": "Point"}, "id": "12", "properties": {"__folium_color": "#4daf4a", "latitude": 6.4041137, "longitude": 5.6263074, "station_name": "GeogRP_UniBen_Benin"}, "type": "Feature"}, {"bbox": [-6.322762263, 12.79819407, -6.322762263, 12.79819407], "geometry": {"coordinates": [-6.322762263, 12.79819407], "type": "Point"}, "id": "13", "properties": {"__folium_color": "#984ea3", "latitude": 12.79819407, "longitude": -6.322762263, "station_name": "Gouendo"}, "type": "Feature"}, {"bbox": [39.495223, 1.015292, 39.495223, 1.015292], "geometry": {"coordinates": [39.495223, 1.015292], "type": "Point"}, "id": "14", "properties": {"__folium_color": "#984ea3", "latitude": 1.015292, "longitude": 39.495223, "station_name": "Habasweni DC Offices"}, "type": "Feature"}, {"bbox": [-2.877294, 5.053207, -2.877294, 5.053207], "geometry": {"coordinates": [-2.877294, 5.053207], "type": "Point"}, "id": "15", "properties": {"__folium_color": "#984ea3", "latitude": 5.053207, "longitude": -2.877294, "station_name": "Half Assini SHS"}, "type": "Feature"}, {"bbox": [-5.441847, 12.415836, -5.441847, 12.415836], "geometry": {"coordinates": [-5.441847, 12.415836], "type": "Point"}, "id": "16", "properties": {"__folium_color": "#984ea3", "latitude": 12.415836, "longitude": -5.441847, "station_name": "Institut de Formation Professionnelle Malick Sidibe LTAK"}, "type": "Feature"}, {"bbox": [34.260355, -0.09321, 34.260355, -0.09321], "geometry": {"coordinates": [34.260355, -0.09321], "type": "Point"}, "id": "17", "properties": {"__folium_color": "#984ea3", "latitude": -0.09321, "longitude": 34.260355, "station_name": "Jooust"}, "type": "Feature"}, {"bbox": [-8.195493, 10.78883, -8.195493, 10.78883], "geometry": {"coordinates": [-8.195493, 10.78883], "type": "Point"}, "id": "18", "properties": {"__folium_color": "#ff7f00", "latitude": 10.78883, "longitude": -8.195493, "station_name": "Kalana"}, "type": "Feature"}, {"bbox": [33.685373, -13.032491, 33.685373, -13.032491], "geometry": {"coordinates": [33.685373, -13.032491], "type": "Point"}, "id": "19", "properties": {"__folium_color": "#ff7f00", "latitude": -13.032491, "longitude": 33.685373, "station_name": "Kamuzu Academy"}, "type": "Feature"}, {"bbox": [-7.5319189, 12.920423, -7.5319189, 12.920423], "geometry": {"coordinates": [-7.5319189, 12.920423], "type": "Point"}, "id": "20", "properties": {"__folium_color": "#ff7f00", "latitude": 12.920423, "longitude": -7.5319189, "station_name": "Katibougou"}, "type": "Feature"}, {"bbox": [0.989567, 5.895083, 0.989567, 5.895083], "geometry": {"coordinates": [0.989567, 5.895083], "type": "Point"}, "id": "21", "properties": {"__folium_color": "#ff7f00", "latitude": 5.895083, "longitude": 0.989567, "station_name": "Keta SHS"}, "type": "Feature"}, {"bbox": [-6.018243, 11.85276, -6.018243, 11.85276], "geometry": {"coordinates": [-6.018243, 11.85276], "type": "Point"}, "id": "22", "properties": {"__folium_color": "#ffff33", "latitude": 11.85276, "longitude": -6.018243, "station_name": "Kignan"}, "type": "Feature"}, {"bbox": [34.115317, -14.166357, 34.115317, -14.166357], "geometry": {"coordinates": [34.115317, -14.166357], "type": "Point"}, "id": "23", "properties": {"__folium_color": "#ffff33", "latitude": -14.166357, "longitude": 34.115317, "station_name": "Linthipe Agriculture"}, "type": "Feature"}, {"bbox": [-4.188941, 14.49461, -4.188941, 14.49461], "geometry": {"coordinates": [-4.188941, 14.49461], "type": "Point"}, "id": "24", "properties": {"__folium_color": "#ffff33", "latitude": 14.49461, "longitude": -4.188941, "station_name": "Lycee De Mopti"}, "type": "Feature"}, {"bbox": [-5.676385, 11.324207, -5.676385, 11.324207], "geometry": {"coordinates": [-5.676385, 11.324207], "type": "Point"}, "id": "25", "properties": {"__folium_color": "#ffff33", "latitude": 11.324207, "longitude": -5.676385, "station_name": "Lyc\u00e9e Dedier De Montclos Sikasso"}, "type": "Feature"}, {"bbox": [5.130365, 7.307635, 5.130365, 7.307635], "geometry": {"coordinates": [5.130365, 7.307635], "type": "Point"}, "id": "26", "properties": {"__folium_color": "#a65628", "latitude": 7.307635, "longitude": 5.130365, "station_name": "MCS-FUTA-Akure"}, "type": "Feature"}, {"bbox": [-7.7394, 10.822359, -7.7394, 10.822359], "geometry": {"coordinates": [-7.7394, 10.822359], "type": "Point"}, "id": "27", "properties": {"__folium_color": "#a65628", "latitude": 10.822359, "longitude": -7.7394, "station_name": "Madina Diassa"}, "type": "Feature"}, {"bbox": [-7.449116, 10.461182, -7.449116, 10.461182], "geometry": {"coordinates": [-7.449116, 10.461182], "type": "Point"}, "id": "28", "properties": {"__folium_color": "#a65628", "latitude": 10.461182, "longitude": -7.449116, "station_name": "Manankoro"}, "type": "Feature"}, {"bbox": [35.84389674, 3.498068995, 35.84389674, 3.498068995], "geometry": {"coordinates": [35.84389674, 3.498068995], "type": "Point"}, "id": "29", "properties": {"__folium_color": "#a65628", "latitude": 3.498068995, "longitude": 35.84389674, "station_name": "Moi High School Kalokol"}, "type": "Feature"}, {"bbox": [33.579343, -10.948273, 33.579343, -10.948273], "geometry": {"coordinates": [33.579343, -10.948273], "type": "Point"}, "id": "30", "properties": {"__folium_color": "#a65628", "latitude": -10.948273, "longitude": 33.579343, "station_name": "Mwazisi"}, "type": "Feature"}, {"bbox": [36.809757, -1.274462, 36.809757, -1.274462], "geometry": {"coordinates": [36.809757, -1.274462], "type": "Point"}, "id": "31", "properties": {"__folium_color": "#f781bf", "latitude": -1.274462, "longitude": 36.809757, "station_name": "Nairobi University"}, "type": "Feature"}, {"bbox": [34.970907, -15.488575, 34.970907, -15.488575], "geometry": {"coordinates": [34.970907, -15.488575], "type": "Point"}, "id": "32", "properties": {"__folium_color": "#f781bf", "latitude": -15.488575, "longitude": 34.970907, "station_name": "Namikasi sec school"}, "type": "Feature"}, {"bbox": [35.0438039, -15.7639177, 35.0438039, -15.7639177], "geometry": {"coordinates": [35.0438039, -15.7639177], "type": "Point"}, "id": "33", "properties": {"__folium_color": "#f781bf", "latitude": -15.7639177, "longitude": 35.0438039, "station_name": "Ndirande Secondary School"}, "type": "Feature"}, {"bbox": [36.3769356, -0.2001778, 36.3769356, -0.2001778], "geometry": {"coordinates": [36.3769356, -0.2001778], "type": "Point"}, "id": "34", "properties": {"__folium_color": "#f781bf", "latitude": -0.2001778, "longitude": 36.3769356, "station_name": "Nyandarua High School"}, "type": "Feature"}, {"bbox": [-6.994592348, 13.25463414, -6.994592348, 13.25463414], "geometry": {"coordinates": [-6.994592348, 13.25463414], "type": "Point"}, "id": "35", "properties": {"__folium_color": "#999999", "latitude": 13.25463414, "longitude": -6.994592348, "station_name": "Seguela"}, "type": "Feature"}, {"bbox": [-7.921099, 12.657203, -7.921099, 12.657203], "geometry": {"coordinates": [-7.921099, 12.657203], "type": "Point"}, "id": "36", "properties": {"__folium_color": "#999999", "latitude": 12.657203, "longitude": -7.921099, "station_name": "Sotuba-CRRA"}, "type": "Feature"}, {"bbox": [-0.01187, 5.641413, -0.01187, 5.641413], "geometry": {"coordinates": [-0.01187, 5.641413], "type": "Point"}, "id": "37", "properties": {"__folium_color": "#999999", "latitude": 5.641413, "longitude": -0.01187, "station_name": "Tema Secondary School"}, "type": "Feature"}, {"bbox": [35.254139, -15.7566197, 35.254139, -15.7566197], "geometry": {"coordinates": [35.254139, -15.7566197], "type": "Point"}, "id": "38", "properties": {"__folium_color": "#999999", "latitude": -15.7566197, "longitude": 35.254139, "station_name": "Thumbwe Agriculture"}, "type": "Feature"}, {"bbox": [35.04938, -0.341075, 35.04938, -0.341075], "geometry": {"coordinates": [35.04938, -0.341075], "type": "Point"}, "id": "39", "properties": {"__folium_color": "#999999", "latitude": -0.341075, "longitude": 35.04938, "station_name": "Upper Nyando"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_538f0c0afa8c3ae7f560807d871df934.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature => {
+        if (feature === null) {
+            return '';
+        } else if (typeof(feature)=='object') {
+            return JSON.stringify(feature);
+        } else {
+            return feature;
+        }
+    }
+    let fields = ["station_name"];
+    let aliases = ["station_name"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{
+  "sticky": true,
+  "className": "foliumtooltip",
+});
+                     
+    
+    geo_json_538f0c0afa8c3ae7f560807d871df934.bindPopup(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature => {
+        if (feature === null) {
+            return '';
+        } else if (typeof(feature)=='object') {
+            return JSON.stringify(feature);
+        } else {
+            return feature;
+        }
+    }
+    let fields = ["station_name", "latitude", "longitude"];
+    let aliases = ["station_name", "latitude", "longitude"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i].toLocaleString()}</th>
+            
+            <td>${handleObject(layer.feature.properties[v]).toLocaleString()}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{
+  "className": "foliumpopup",
+});
+                     
+    
+            geo_json_538f0c0afa8c3ae7f560807d871df934.addTo(map_5620c34c9ddbe1c2eabd54d73f85e3da);
+        
+</script>
+</html>
