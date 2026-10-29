@@ -1,0 +1,758 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Loading Data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# train data\n",
+    "train = pd.read_csv(\"train.csv\")\n",
+    "lgb_8 = pd.read_csv(\"oof_lgb.csv\")\n",
+    "xgb_8 = pd.read_csv(\"oof_xgb.csv\")\n",
+    "lgb_9 = pd.read_csv(\"oof_lgb_9.csv\")\n",
+    "xgb_9 = pd.read_csv(\"oof_lgb_9.csv\")\n",
+    "cat_10 = pd.read_csv(\"oof_cat_10.csv\")\n",
+    "xgb_11 = pd.read_csv(\"oof_xgb_11.csv\")\n",
+    "logit_12 = pd.read_csv(\"oof_logit_12.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# train data\n",
+    "train_blend = train[['id','addicted_label']]\n",
+    "train_blend['lgb_8']=lgb_8['addicted_label']\n",
+    "train_blend['xgb_8']=xgb_8['addicted_label']\n",
+    "train_blend['lgb_9']=lgb_9['addicted_label']\n",
+    "train_blend['xgb_9']=xgb_9['addicted_label']\n",
+    "train_blend['cat_10']=cat_10['addicted_label']\n",
+    "train_blend['xgb_11']=xgb_11['addicted_label']\n",
+    "train_blend['logit_12']=logit_12['addicted_label']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>addicted_label</th>\n",
+       "      <th>lgb_8</th>\n",
+       "      <th>xgb_8</th>\n",
+       "      <th>lgb_9</th>\n",
+       "      <th>xgb_9</th>\n",
+       "      <th>cat_10</th>\n",
+       "      <th>xgb_11</th>\n",
+       "      <th>logit_12</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0.854469</td>\n",
+       "      <td>0.825155</td>\n",
+       "      <td>0.876218</td>\n",
+       "      <td>0.876218</td>\n",
+       "      <td>0.835556</td>\n",
+       "      <td>0.597654</td>\n",
+       "      <td>0.742463</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0.023812</td>\n",
+       "      <td>0.019690</td>\n",
+       "      <td>0.033296</td>\n",
+       "      <td>0.033296</td>\n",
+       "      <td>0.037425</td>\n",
+       "      <td>0.085933</td>\n",
+       "      <td>0.367813</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0.469616</td>\n",
+       "      <td>0.378026</td>\n",
+       "      <td>0.469198</td>\n",
+       "      <td>0.469198</td>\n",
+       "      <td>0.452888</td>\n",
+       "      <td>0.317818</td>\n",
+       "      <td>0.743042</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0.379479</td>\n",
+       "      <td>0.368591</td>\n",
+       "      <td>0.349492</td>\n",
+       "      <td>0.349492</td>\n",
+       "      <td>0.325944</td>\n",
+       "      <td>0.339354</td>\n",
+       "      <td>0.521827</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0.999983</td>\n",
+       "      <td>0.999973</td>\n",
+       "      <td>0.999984</td>\n",
+       "      <td>0.999984</td>\n",
+       "      <td>0.999793</td>\n",
+       "      <td>0.999920</td>\n",
+       "      <td>0.983964</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   id  addicted_label     lgb_8     xgb_8     lgb_9     xgb_9    cat_10  \\\n",
+       "0   0               1  0.854469  0.825155  0.876218  0.876218  0.835556   \n",
+       "1   1               0  0.023812  0.019690  0.033296  0.033296  0.037425   \n",
+       "2   2               0  0.469616  0.378026  0.469198  0.469198  0.452888   \n",
+       "3   3               1  0.379479  0.368591  0.349492  0.349492  0.325944   \n",
+       "4   4               1  0.999983  0.999973  0.999984  0.999984  0.999793   \n",
+       "\n",
+       "     xgb_11  logit_12  \n",
+       "0  0.597654  0.742463  \n",
+       "1  0.085933  0.367813  \n",
+       "2  0.317818  0.743042  \n",
+       "3  0.339354  0.521827  \n",
+       "4  0.999920  0.983964  "
+      ]
+     },
+     "execution_count": 26,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "train_blend.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# test data\n",
+    "test = pd.read_csv(\"test.csv\")\n",
+    "sub_lgb_8 = pd.read_csv(\"sub_lgb.csv\")\n",
+    "sub_xgb_8 = pd.read_csv(\"sub_xgb.csv\")\n",
+    "sub_lgb_9 = pd.read_csv(\"sub_lgb_9.csv\")\n",
+    "sub_xgb_9 = pd.read_csv(\"sub_lgb_9.csv\")\n",
+    "sub_cat_10 = pd.read_csv(\"sub_cat_10.csv\")\n",
+    "sub_xgb_11 = pd.read_csv(\"sub_xgb_11.csv\")\n",
+    "sub_logit_12 = pd.read_csv(\"sub_logit_12.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# test data\n",
+    "test_blend = test[['id']]\n",
+    "test_blend['lgb_8']=sub_lgb_8['addicted_label']\n",
+    "test_blend['xgb_8']=sub_xgb_8['addicted_label']\n",
+    "test_blend['lgb_9']=sub_lgb_9['addicted_label']\n",
+    "test_blend['xgb_9']=sub_xgb_9['addicted_label']\n",
+    "test_blend['cat_10']=sub_cat_10['addicted_label']\n",
+    "test_blend['xgb_11']=sub_xgb_11['addicted_label']\n",
+    "test_blend['logit_12']=sub_logit_12['addicted_label']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>lgb_8</th>\n",
+       "      <th>xgb_8</th>\n",
+       "      <th>lgb_9</th>\n",
+       "      <th>xgb_9</th>\n",
+       "      <th>cat_10</th>\n",
+       "      <th>xgb_11</th>\n",
+       "      <th>logit_12</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>691369</td>\n",
+       "      <td>0.999411</td>\n",
+       "      <td>0.999682</td>\n",
+       "      <td>0.999372</td>\n",
+       "      <td>0.999372</td>\n",
+       "      <td>0.999349</td>\n",
+       "      <td>0.998112</td>\n",
+       "      <td>0.943226</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>691370</td>\n",
+       "      <td>0.957203</td>\n",
+       "      <td>0.897480</td>\n",
+       "      <td>0.957812</td>\n",
+       "      <td>0.957812</td>\n",
+       "      <td>0.943218</td>\n",
+       "      <td>0.838531</td>\n",
+       "      <td>0.953712</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>691371</td>\n",
+       "      <td>0.943774</td>\n",
+       "      <td>0.935185</td>\n",
+       "      <td>0.949821</td>\n",
+       "      <td>0.949821</td>\n",
+       "      <td>0.945361</td>\n",
+       "      <td>0.985683</td>\n",
+       "      <td>0.954538</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>691372</td>\n",
+       "      <td>0.990545</td>\n",
+       "      <td>0.992388</td>\n",
+       "      <td>0.992187</td>\n",
+       "      <td>0.992187</td>\n",
+       "      <td>0.988822</td>\n",
+       "      <td>0.987936</td>\n",
+       "      <td>0.939049</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>691373</td>\n",
+       "      <td>0.998186</td>\n",
+       "      <td>0.998274</td>\n",
+       "      <td>0.997824</td>\n",
+       "      <td>0.997824</td>\n",
+       "      <td>0.997532</td>\n",
+       "      <td>0.994729</td>\n",
+       "      <td>0.981143</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       id     lgb_8     xgb_8     lgb_9     xgb_9    cat_10    xgb_11  \\\n",
+       "0  691369  0.999411  0.999682  0.999372  0.999372  0.999349  0.998112   \n",
+       "1  691370  0.957203  0.897480  0.957812  0.957812  0.943218  0.838531   \n",
+       "2  691371  0.943774  0.935185  0.949821  0.949821  0.945361  0.985683   \n",
+       "3  691372  0.990545  0.992388  0.992187  0.992187  0.988822  0.987936   \n",
+       "4  691373  0.998186  0.998274  0.997824  0.997824  0.997532  0.994729   \n",
+       "\n",
+       "   logit_12  \n",
+       "0  0.943226  \n",
+       "1  0.953712  \n",
+       "2  0.954538  \n",
+       "3  0.939049  \n",
+       "4  0.981143  "
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "test_blend.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# submission\n",
+    "sample_submit = pd.read_csv(\"sample_submission.csv\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Modeling Preparation"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.model_selection import StratifiedKFold\n",
+    "from sklearn.metrics import roc_auc_score"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'\\nimport lightgbm as lgb\\nimport xgboost as xgb\\nfrom catboost import CatBoostClassifier, Pool\\n'"
+      ]
+     },
+     "execution_count": 32,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "'''\n",
+    "import lightgbm as lgb\n",
+    "import xgboost as xgb\n",
+    "from catboost import CatBoostClassifier, Pool\n",
+    "'''"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "id                  int64\n",
+       "addicted_label      int64\n",
+       "lgb_8             float64\n",
+       "xgb_8             float64\n",
+       "lgb_9             float64\n",
+       "xgb_9             float64\n",
+       "cat_10            float64\n",
+       "xgb_11            float64\n",
+       "logit_12          float64\n",
+       "dtype: object"
+      ]
+     },
+     "execution_count": 34,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "train_blend.dtypes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 4. Separate features and target\n",
+    "# X = train_blend.drop(columns=[\"id\",\"addicted_label\",\"logit_12\"])\n",
+    "X = train_blend.drop(columns=[\"id\",\"addicted_label\"])\n",
+    "y = train_blend[\"addicted_label\"]\n",
+    "# X_test = test_blend.drop(columns=[\"id\",\"logit_12\"])\n",
+    "X_test = test_blend.drop(columns=[\"id\"])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "SEED = 42\n",
+    "N_FOLDS = 5\n",
+    "TARGET = 'addicted_label'"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Stratified KFold cross validation\n",
+    "skf = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)\n",
+    "FOLDS = list(skf.split(X, y))\n",
+    "\n",
+    "def run_cv(fit_predict_fn, name):\n",
+    "    oof = np.zeros(len(X))\n",
+    "    test_pred = np.zeros(len(X_test))\n",
+    "    scores = []\n",
+    "    for fold, (tr_idx, va_idx) in enumerate(FOLDS):\n",
+    "        X_tr, X_va = X.iloc[tr_idx], X.iloc[va_idx]\n",
+    "        y_tr, y_va = y[tr_idx], y[va_idx]\n",
+    "        va_pred, te_pred = fit_predict_fn(X_tr, y_tr, X_va, y_va)\n",
+    "        oof[va_idx] = va_pred\n",
+    "        test_pred += te_pred / N_FOLDS\n",
+    "        auc = roc_auc_score(y_va, va_pred)\n",
+    "        scores.append(auc)\n",
+    "        print(f'  fold {fold}: AUC = {auc:.5f}')\n",
+    "    total = roc_auc_score(y, oof)\n",
+    "    print(f'{name} | OOF AUC = {total:.5f} (mean {np.mean(scores):.5f} ± {np.std(scores):.5f})')\n",
+    "    return oof, test_pred, total"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Modeling"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Logistic Regression Model"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.linear_model import LogisticRegression"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def fit_logit(X_tr, y_tr, X_va, y_va):\n",
+    "    model = LogisticRegression()\n",
+    "    model.fit(X_tr, y_tr)\n",
+    "    return (model.predict_proba(X_va)[:, 1],\n",
+    "            model.predict_proba(X_test)[:, 1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "  fold 0: AUC = 0.96356\n",
+      "  fold 1: AUC = 0.96414\n",
+      "  fold 2: AUC = 0.96443\n",
+      "  fold 3: AUC = 0.96513\n",
+      "  fold 4: AUC = 0.96414\n",
+      "LogitModel | OOF AUC = 0.96426 (mean 0.96428 ± 0.00051)\n"
+     ]
+    }
+   ],
+   "source": [
+    "oof_blending, test_blending, auc_blending = run_cv(fit_logit, 'LogitModel')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Ensemble"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "guardado: sub_blending_13_2.csv\n"
+     ]
+    }
+   ],
+   "source": [
+    "# test_mean = (test_lgb + test_xgb + test_cat) / 3\n",
+    "# test_mean = (test_lgb + test_xgb ) / 2\n",
+    "# test_rank = (rankdata(test_lgb) + rankdata(test_xgb) + rankdata(test_cat)) / (3 * len(test_lgb))\n",
+    "\n",
+    "def save_sub(pred, name):\n",
+    "    sub = sample_submit.copy()\n",
+    "    sub[TARGET] = pred\n",
+    "    sub.to_csv(name, index=False)\n",
+    "    print('guardado:', name)\n",
+    "\n",
+    "# save_sub(test_lgb,  'sub_lgb.csv')\n",
+    "save_sub(test_blending,  'sub_blending_13_2.csv')\n",
+    "#save_sub(test_cat,  'sub_cat.csv')\n",
+    "# save_sub(test_mean, 'sub_ensemble_mean.csv')\n",
+    "# save_sub(test_rank, 'sub_ensemble_rank.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([0.91860092, 0.03408436, 0.36957176, ..., 0.64719444, 0.9718048 ,\n",
+       "       0.23461181], shape=(691369,))"
+      ]
+     },
+     "execution_count": 53,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "oof_blending"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def save_oof(pred, name):\n",
+    "    oof = train.copy()\n",
+    "    oof = oof[[\"id\",TARGET]]\n",
+    "    oof[TARGET] = pred\n",
+    "    oof.to_csv(name, index=False)\n",
+    "    print('saving:', name)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "saving: oof_blending_13_2.csv\n"
+     ]
+    }
+   ],
+   "source": [
+    "# save_oof(oof_lgb,'oof_lgb.csv')\n",
+    "save_oof(oof_blending,'oof_blending_13_2.csv')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Blending with XGBoost"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 56,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import lightgbm as lgb\n",
+    "import xgboost as xgb\n",
+    "from catboost import CatBoostClassifier, Pool"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def fit_xgb(X_tr, y_tr, X_va, y_va):\n",
+    "    model = xgb.XGBClassifier(\n",
+    "        objective='binary:logistic',\n",
+    "        eval_metric='auc',\n",
+    "        n_estimators=5000,\n",
+    "        learning_rate=0.03,\n",
+    "        max_depth=7,\n",
+    "        min_child_weight=20,\n",
+    "        colsample_bytree=0.8,\n",
+    "        subsample=0.8,\n",
+    "        reg_alpha=0.1,\n",
+    "        reg_lambda=1.0,\n",
+    "        tree_method='hist',\n",
+    "        enable_categorical=True,\n",
+    "        early_stopping_rounds=200,\n",
+    "        random_state=SEED,\n",
+    "        n_jobs=-1,\n",
+    "    )\n",
+    "    model.fit(X_tr, y_tr, eval_set=[(X_va, y_va)], verbose=False)\n",
+    "    return (model.predict_proba(X_va)[:, 1],\n",
+    "            model.predict_proba(X_test)[:, 1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "  fold 0: AUC = 0.96569\n",
+      "  fold 1: AUC = 0.96627\n",
+      "  fold 2: AUC = 0.96643\n",
+      "  fold 3: AUC = 0.96714\n",
+      "  fold 4: AUC = 0.96598\n",
+      "XGBoost | OOF AUC = 0.96629 (mean 0.96630 ± 0.00049)\n"
+     ]
+    }
+   ],
+   "source": [
+    "oof_xgb, test_xgb, auc_xgb = run_cv(fit_xgb, 'XGBoost')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# save_sub(test_blending,  'sub_blending_13_3_nologit.csv')\n",
+    "# save_oof(oof_blending,'oof_blending_13_3_nologit.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "guardado: sub_blending_13_4_logit.csv\n",
+      "saving: oof_blending_13_4_logit.csv\n"
+     ]
+    }
+   ],
+   "source": [
+    "save_sub(test_blending,  'sub_blending_13_4_logit.csv')\n",
+    "save_oof(oof_blending,'oof_blending_13_4_logit.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "sourceId": 125218,
+     "sourceType": "competition"
+    }
+   ],
+   "isGpuEnabled": false,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.14.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

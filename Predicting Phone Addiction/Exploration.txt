@@ -1,0 +1,32 @@
+Notes di Phone Addiction:
+a. Saya ga cek distribusi test - DONE. sama saja
+a. Saya ga check distribusi setelah mengisi imputation - DONE
+b. Hasil setelah imputasi ternyata lebih jelek - Yah, I do not know also
+b. Kalau menggunakan mean dan median, seharusnya hasil gabungan dari train dan test. Atau ambil dari test. Distribusi sama. NO PROBLEM karena distribusi Test dan Train sama.
+e. Impute menggunakan Mean Median - JELEK
+f. Impute menggunakan Linear - JELEK
+g. Impute menggunakan PMM agar distribusi tidak rusak - JELEK
+c. Yang datanya berupa category, ga usah di imput. Anggap saja missing data. - DONE ga ngaruh
+
+
+Langkah Selanjutnya:
+a. EDA - Done
+
+
+Selanjutnya:
+a. Imputation membuat hasilnya jelek - DONE
+b. Balik lagi ke data awal, tapi gunakan model-model ini:
+  - Logistic - DONE - hasil jelek banget
+  - LightGBM - DONE - agak lama, dan hasil setelah GBOOST
+  - Catboost - DONE - model lama jalannya dan hasil biasa saja
+  - XGboost - DONE - model paling bagus
+  - RandomForest - xxx
+  
+ c. Next
+ - Mencari parameter optimum dengan Optuna. Cek code dari MLAcademy.
+ - Optuna untuk LGB dan XGB
+ 
+ 
+ 
+ Plan untuk Zindi, water prediction drought:
+ - Exploratory data analysis dulu
